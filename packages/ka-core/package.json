@@ -1,0 +1,36 @@
+{
+  "name": "@holmes89/ka-core",
+  "version": "0.1.0",
+  "description": "Shared contract, keyboard hook and registry helpers for Ka emulator components",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/ka-core.cjs",
+  "module": "./dist/ka-core.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ka-core.js",
+      "require": "./dist/ka-core.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holmes89/ka.git",
+    "directory": "packages/ka-core"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}
