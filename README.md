@@ -8,7 +8,7 @@ Keyboard only, no save states. Nothing is uploaded or stored; the host hands a c
 |---|---|---|
 | `@holmes89/ka-core` | shared contract, key map, keyboard hook, registry | none |
 | `@holmes89/ka-nes` (in progress) | NES / Famicom | [holmes89/nes-js](https://github.com/holmes89/nes-js) |
-| `@holmes89/ka-gb` (in progress) | Game Boy / Game Boy Color | [holmes89/wasmboy](https://github.com/holmes89/wasmboy) |
+| `@holmes89/ka-gb` | Game Boy / Game Boy Color | [holmes89/wasmboy](https://github.com/holmes89/wasmboy) |
 
 ## Original projects
 
