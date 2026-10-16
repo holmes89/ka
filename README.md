@@ -8,7 +8,7 @@ Keyboard only, no save states. Nothing is uploaded or stored; the host hands a c
 |---|---|---|
 | `@holmes89/ka-core` | shared contract, key map, keyboard hook, registry | none |
 | `@holmes89/ka-nes` | NES / Famicom | [holmes89/nes-js](https://github.com/holmes89/nes-js) |
-| `@holmes89/ka-gb` (in progress) | Game Boy / Game Boy Color | [holmes89/wasmboy](https://github.com/holmes89/wasmboy) |
+| `@holmes89/ka-gb` | Game Boy / Game Boy Color | [holmes89/wasmboy](https://github.com/holmes89/wasmboy) |
 
 ## Original projects
 
@@ -36,13 +36,14 @@ Hosts normally go through the registry instead, which lazy-loads the right compo
 ```ts
 import { createRegistry } from '@holmes89/ka-core'
 import { nesEmulator } from '@holmes89/ka-nes'
+import { gameBoyEmulator } from '@holmes89/ka-gb'
 
-const registry = createRegistry([nesEmulator /* , gameBoyEmulator */])
+const registry = createRegistry([nesEmulator, gameBoyEmulator])
 const emulator = registry.forPlatform(game.platform) // undefined for non-ROM platforms
 const { default: Emulator } = await emulator.load()
 ```
 
-`nes-js` is bundled into `ka-nes`, so installing it needs no extra dependency.
+`nes-js` is bundled into `ka-nes` and a prebuilt wasmboy into `ka-gb` (`packages/ka-gb/vendor`, see `VENDORED.md`), so installing them needs no extra dependency. wasmboy is a process-wide singleton: render one Game Boy at a time.
 
 ## Development
 

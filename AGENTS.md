@@ -8,7 +8,8 @@ The common agent policy (branches and worktrees, PR-only changes, real checks, R
 
 - `packages/ka-core`: shared contract (`EmulatorProps`, `EmulatorDefinition`), key map, `useKeyboard`, `createRegistry`.
 - `packages/ka-nes`: NES component; bundles the MIT `nes-js` fork (pinned by commit tarball in devDependencies).
-- `packages/ka-gb`, `apps/dashboard`: added by their own tickets.
+- `packages/ka-gb`: Game Boy / Game Boy Color component; inlines a vendored, prebuilt GPL-3.0 wasmboy bundle (`vendor/VENDORED.md` records the fork commit, sha256 and rebuild steps; update them together).
+- `apps/dashboard`: added by its own ticket.
 
 ## Commands
 
@@ -21,9 +22,11 @@ The common agent policy (branches and worktrees, PR-only changes, real checks, R
 ## Checks before opening a PR
 
 - `npm run lint`
+- `npm run build`
 - `npm run typecheck`
 - `npm test`
-- `npm run build`
+
+Build comes before typecheck and test: packages import each other through their built `dist/` (`ka-core` first), so a clean checkout fails typecheck until `npm run build` has run.
 
 ## Rules specific to this repo
 
