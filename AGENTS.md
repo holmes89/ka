@@ -7,7 +7,9 @@ The common agent policy (branches and worktrees, PR-only changes, real checks, R
 ## Layout
 
 - `packages/ka-core`: shared contract (`EmulatorProps`, `EmulatorDefinition`), key map, `useKeyboard`, `createRegistry`.
-- `packages/ka-nes`, `packages/ka-gb`, `apps/dashboard`: added by their own tickets.
+- `packages/ka-nes`: NES component; bundles the MIT `nes-js` fork (pinned by commit tarball in devDependencies).
+- `packages/ka-gb`: Game Boy / Game Boy Color component; inlines a vendored, prebuilt GPL-3.0 wasmboy bundle (`vendor/VENDORED.md` records the fork commit, sha256 and rebuild steps; update them together).
+- `apps/dashboard`: added by its own ticket.
 
 ## Commands
 
