@@ -10,6 +10,10 @@ Keyboard only, no save states. Nothing is uploaded or stored; the host hands a c
 | `@holmes89/ka-nes` | NES / Famicom | [holmes89/nes-js](https://github.com/holmes89/nes-js) |
 | `@holmes89/ka-gb` | Game Boy / Game Boy Color | [holmes89/wasmboy](https://github.com/holmes89/wasmboy) |
 
+## Dashboard
+
+`apps/dashboard` is a small public demo: it lists the supported systems, plays a ROM you pick or drop (read in the browser, never uploaded; no ROMs are bundled) and links to the original emulator projects. Run it with `npm run dev -w ka-dashboard`; the build is static (`apps/dashboard/dist`) and `.github/workflows/pages.yml` can publish it to GitHub Pages (manual trigger; Pages has to be enabled in the repo settings first).
+
 ## Original projects
 
 Ka stands on these emulators; the forks add teardown (`destroy()`), scoped key handling and a `disableSaves` option so they can live inside React components.

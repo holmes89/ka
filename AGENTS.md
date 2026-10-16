@@ -9,7 +9,7 @@ The common agent policy (branches and worktrees, PR-only changes, real checks, R
 - `packages/ka-core`: shared contract (`EmulatorProps`, `EmulatorDefinition`), key map, `useKeyboard`, `createRegistry`.
 - `packages/ka-nes`: NES component; bundles the MIT `nes-js` fork (pinned by commit tarball in devDependencies).
 - `packages/ka-gb`: Game Boy / Game Boy Color component; inlines a vendored, prebuilt GPL-3.0 wasmboy bundle (`vendor/VENDORED.md` records the fork commit, sha256 and rebuild steps; update them together).
-- `apps/dashboard`: added by its own ticket.
+- `apps/dashboard`: public demo app (Vite, React). Builds the registry from the packages above, plays a local ROM, credits the original projects. GPL-3.0-or-later because it bundles wasmboy.
 
 ## Commands
 
@@ -33,7 +33,7 @@ Build comes before typecheck and test: packages import each other through their 
 - The repository is public: CI uses GitHub-hosted runners only (`ubuntu-latest`); never a self-hosted runner.
 - Emulator components never fetch, store or bundle ROMs, and never persist saves (no localStorage/IndexedDB).
 - Every component must clean up its listeners, audio and workers on unmount and survive React StrictMode double mounting.
-- Licences: `ka-core` and `ka-nes` are MIT; `ka-gb` wraps wasmboy and is GPL-3.0-or-later; the dashboard bundles both and is GPL-3.0-or-later.
+- Licences: `ka-core` and `ka-nes` are MIT; `ka-gb` wraps wasmboy and is GPL-3.0-or-later; the dashboard bundles both and is GPL-3.0-or-later (its `LICENSE`).
 - Packages publish to GitHub Packages via a `v*` tag (see `.github/workflows/publish.yml`).
 
 ## Docs
