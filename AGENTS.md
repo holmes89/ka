@@ -7,7 +7,8 @@ The common agent policy (branches and worktrees, PR-only changes, real checks, R
 ## Layout
 
 - `packages/ka-core`: shared contract (`EmulatorProps`, `EmulatorDefinition`), key map, `useKeyboard`, `createRegistry`.
-- `packages/ka-nes`, `packages/ka-gb`, `apps/dashboard`: added by their own tickets.
+- `packages/ka-nes`: NES component; bundles the MIT `nes-js` fork (pinned by commit tarball in devDependencies).
+- `packages/ka-gb`, `apps/dashboard`: added by their own tickets.
 
 ## Commands
 

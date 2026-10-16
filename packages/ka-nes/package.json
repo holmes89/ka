@@ -1,0 +1,47 @@
+{
+  "name": "@holmes89/ka-nes",
+  "version": "0.1.0",
+  "description": "NES / Famicom emulator React component for Ka (bundles the MIT nes-js fork)",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./component": {
+      "types": "./dist/NesEmulator.d.ts",
+      "import": "./dist/NesEmulator.js",
+      "require": "./dist/NesEmulator.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holmes89/ka.git",
+    "directory": "packages/ka-nes"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@holmes89/ka-core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "nes-js": "https://github.com/holmes89/nes-js/archive/933ea2dbd949515ee3e262fa280e2cfd3ec8fae1.tar.gz"
+  }
+}

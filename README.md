@@ -7,7 +7,7 @@ Keyboard only, no save states. Nothing is uploaded or stored; the host hands a c
 | Package | System | Core |
 |---|---|---|
 | `@holmes89/ka-core` | shared contract, key map, keyboard hook, registry | none |
-| `@holmes89/ka-nes` (in progress) | NES / Famicom | [holmes89/nes-js](https://github.com/holmes89/nes-js) |
+| `@holmes89/ka-nes` | NES / Famicom | [holmes89/nes-js](https://github.com/holmes89/nes-js) |
 | `@holmes89/ka-gb` (in progress) | Game Boy / Game Boy Color | [holmes89/wasmboy](https://github.com/holmes89/wasmboy) |
 
 ## Original projects
@@ -26,17 +26,23 @@ Arrow keys = D-pad, **X** = A, **Z** = B, **Enter** = Start, **Shift** = Select.
 ## Using a component
 
 ```tsx
-import { NesEmulator } from '@holmes89/ka-nes'
+import NesEmulator from '@holmes89/ka-nes/component'
 
 <NesEmulator rom={bytes} onReady={...} onError={...} />
 ```
 
-Hosts normally go through the registry instead, which lazy-loads the right component for an Ibis platform id (`nes`, `gb`, `gbc`):
+Hosts normally go through the registry instead, which lazy-loads the right component for an Ibis platform id (`nes`, `gb`, `gbc`) so each core is only fetched when a game of that system opens:
 
 ```ts
+import { createRegistry } from '@holmes89/ka-core'
+import { nesEmulator } from '@holmes89/ka-nes'
+
+const registry = createRegistry([nesEmulator /* , gameBoyEmulator */])
 const emulator = registry.forPlatform(game.platform) // undefined for non-ROM platforms
 const { default: Emulator } = await emulator.load()
 ```
+
+`nes-js` is bundled into `ka-nes`, so installing it needs no extra dependency.
 
 ## Development
 
