@@ -1,0 +1,45 @@
+{
+  "name": "@holmes89/ka-gb",
+  "version": "0.1.0",
+  "description": "Game Boy / Game Boy Color emulator React component for Ka (bundles the GPL-3.0 wasmboy fork)",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./component": {
+      "types": "./dist/GameBoyEmulator.d.ts",
+      "import": "./dist/GameBoyEmulator.js",
+      "require": "./dist/GameBoyEmulator.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holmes89/ka.git",
+    "directory": "packages/ka-gb"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@holmes89/ka-core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}
