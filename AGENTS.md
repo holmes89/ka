@@ -20,9 +20,11 @@ The common agent policy (branches and worktrees, PR-only changes, real checks, R
 ## Checks before opening a PR
 
 - `npm run lint`
+- `npm run build`
 - `npm run typecheck`
 - `npm test`
-- `npm run build`
+
+Build comes before typecheck and test: packages import each other through their built `dist/` (`ka-core` first), so a clean checkout fails typecheck until `npm run build` has run.
 
 ## Rules specific to this repo
 
