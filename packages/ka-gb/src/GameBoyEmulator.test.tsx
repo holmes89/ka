@@ -66,6 +66,22 @@ describe('GameBoyEmulator', () => {
     expect(Array.from(view)).toEqual([1, 2, 3, 4]) // the caller's bytes are untouched
   })
 
+  it("restores Ka's canvas sizing after wasmboy overwrites the inline style", async () => {
+    // wasmboy sets canvas.style = '...' (replacing every inline style) while initialising
+    wasmboy.config.mockImplementation(async (_options: unknown, canvas: HTMLCanvasElement) => {
+      calls.push('config')
+      canvas.setAttribute('style', 'image-rendering: pixelated;')
+    })
+    const onReady = vi.fn()
+    const { getByRole } = render(<GameBoyEmulator rom={rom} onReady={onReady} />)
+    await waitFor(() => expect(onReady).toHaveBeenCalled())
+
+    const canvas = getByRole('img', { name: 'Game Boy game screen' })
+    expect(canvas.style.width).toBe('100%')
+    expect(canvas.style.display).toBe('block')
+    expect(canvas.style.imageRendering).toBe('pixelated')
+  })
+
   it('maps the shared keys to joypad state and keeps held buttons held', async () => {
     const onReady = vi.fn()
     render(<GameBoyEmulator rom={rom} onReady={onReady} />)
