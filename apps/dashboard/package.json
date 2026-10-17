@@ -1,0 +1,22 @@
+{
+  "name": "ka-dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Public Ka demo: supported systems, a local-ROM player and credits for the original emulators",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@holmes89/ka-core": "^0.1.0",
+    "@holmes89/ka-gb": "^0.1.0",
+    "@holmes89/ka-nes": "^0.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}

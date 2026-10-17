@@ -1,0 +1,40 @@
+name: Deploy dashboard to GitHub Pages
+
+# Manual for now. Pages must be enabled first: Settings > Pages > Source: "GitHub Actions".
+# After that, add `push: branches: [main]` here to deploy on every merge.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    # Public repository: GitHub-hosted runners only, never self-hosted.
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/dashboard/dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
