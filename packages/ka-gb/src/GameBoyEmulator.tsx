@@ -49,7 +49,9 @@ export default function GameBoyEmulator({ rom, onReady, onError, className }: Em
           { headless: false, isAudioEnabled: true, disableSaves: true, enableBootROMIfAvailable: false },
           canvas,
         )
-        await WasmBoy.loadROM(rom)
+        // Hand the core a private, exactly-sized copy: callers often pass a view into a larger buffer
+        // (e.g. bytes decoded from an RPC response) and wasmboy ships the underlying buffer to its workers.
+        await WasmBoy.loadROM(rom.slice())
         // loadROM turns wasmboy's own key handling on; Ka drives the pad from the shared key map instead.
         WasmBoy.disableDefaultJoypad()
         if (cancelled) return

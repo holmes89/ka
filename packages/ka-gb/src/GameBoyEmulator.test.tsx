@@ -48,8 +48,22 @@ describe('GameBoyEmulator', () => {
       expect.objectContaining({ disableSaves: true, headless: false, isAudioEnabled: true }),
       canvas,
     )
-    expect(wasmboy.loadROM).toHaveBeenCalledWith(rom)
+    expect(wasmboy.loadROM).toHaveBeenCalledWith(rom) // equal bytes
     expect(calls).toEqual(['config', 'loadROM', 'disableDefaultJoypad', 'play'])
+  })
+
+  it('gives the core a private exactly-sized copy, even for a view into a larger buffer', async () => {
+    const backing = new Uint8Array([9, 9, 1, 2, 3, 4, 9, 9])
+    const view = backing.subarray(2, 6) // like bytes decoded from an RPC response
+    const onReady = vi.fn()
+    render(<GameBoyEmulator rom={view} onReady={onReady} />)
+    await waitFor(() => expect(onReady).toHaveBeenCalled())
+
+    const passed = wasmboy.loadROM.mock.calls[0][0] as Uint8Array
+    expect(Array.from(passed)).toEqual([1, 2, 3, 4])
+    expect(passed.buffer.byteLength).toBe(4)
+    expect(passed.buffer).not.toBe(backing.buffer)
+    expect(Array.from(view)).toEqual([1, 2, 3, 4]) // the caller's bytes are untouched
   })
 
   it('maps the shared keys to joypad state and keeps held buttons held', async () => {
