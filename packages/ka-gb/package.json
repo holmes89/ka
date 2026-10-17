@@ -1,6 +1,6 @@
 {
   "name": "@holmes89/ka-gb",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Game Boy / Game Boy Color emulator React component for Ka (bundles the GPL-3.0 wasmboy fork)",
   "license": "GPL-3.0-or-later",
   "type": "module",

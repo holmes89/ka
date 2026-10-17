@@ -1,6 +1,6 @@
 {
   "name": "@holmes89/ka-nes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NES / Famicom emulator React component for Ka (bundles the MIT nes-js fork)",
   "license": "MIT",
   "type": "module",
