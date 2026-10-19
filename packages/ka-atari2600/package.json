@@ -1,6 +1,6 @@
 {
   "name": "@holmes89/ka-atari2600",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Atari 2600 emulator React component for Ka (bundles the MIT 6502.ts / Stellerator core)",
   "license": "MIT",
   "type": "module",
@@ -37,7 +37,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@holmes89/ka-core": "^0.1.0"
+    "@holmes89/ka-core": "^0.2.0"
   },
   "peerDependencies": {
     "react": "^19.0.0"
