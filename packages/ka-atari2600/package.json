@@ -1,0 +1,49 @@
+{
+  "name": "@holmes89/ka-atari2600",
+  "version": "0.1.0",
+  "description": "Atari 2600 emulator React component for Ka (bundles the MIT 6502.ts / Stellerator core)",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./component": {
+      "types": "./dist/Atari2600Emulator.d.ts",
+      "import": "./dist/Atari2600Emulator.js",
+      "require": "./dist/Atari2600Emulator.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holmes89/ka.git",
+    "directory": "packages/ka-atari2600"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build:worker": "node scripts/build-worker.mjs",
+    "build": "npm run build:worker && vite build",
+    "test": "npm run build:worker && vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@holmes89/ka-core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "6502.ts": "1.1.4",
+    "esbuild": "^0.25.0"
+  }
+}

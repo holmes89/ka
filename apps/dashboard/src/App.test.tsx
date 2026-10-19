@@ -27,6 +27,16 @@ vi.mock('@holmes89/ka-gb', () => ({
   },
 }))
 
+vi.mock('@holmes89/ka-atari2600', () => ({
+  atari2600Emulator: {
+    id: 'atari2600',
+    label: 'Atari 2600',
+    platforms: ['atari2600'],
+    extensions: ['.a26', '.bin'],
+    load: () => Promise.resolve({ default: ({ rom }: { rom: Uint8Array }) => <div data-testid="a26">a26:{rom.length}</div> }),
+  },
+}))
+
 const file = (name: string, bytes = 8) => new File([new Uint8Array(bytes)], name)
 const choose = (f: File) => fireEvent.change(document.querySelector('input[type=file]')!, { target: { files: [f] } })
 
@@ -35,6 +45,7 @@ describe('Ka dashboard', () => {
     render(<App />)
     expect(screen.getByRole('heading', { name: 'NES' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Game Boy / Game Boy Color' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Atari 2600' })).toBeInTheDocument()
     for (const text of ['nes', '.nes', 'gb', 'gbc', '.gb', '.gbc']) {
       expect(screen.getAllByText(text).length).toBeGreaterThan(0)
     }
@@ -55,6 +66,7 @@ describe('Ka dashboard', () => {
         'https://github.com/holmes89/nes-js',
         'https://github.com/torch2424/wasmBoy',
         'https://github.com/holmes89/wasmboy',
+        'https://github.com/6502ts/6502.ts',
       ]),
     )
   })
@@ -64,6 +76,14 @@ describe('Ka dashboard', () => {
     choose(file('pong.nes', 5))
     expect(await screen.findByTestId('nes')).toHaveTextContent('nes:5')
     expect(screen.getByText('pong.nes')).toBeInTheDocument()
+  })
+
+  it('plays Atari 2600 cartridges and credits upstream without claiming a fork', async () => {
+    render(<App />)
+    choose(file('combat.a26', 4))
+    expect(await screen.findByTestId('a26')).toHaveTextContent('a26:4')
+    const links = screen.getAllByRole('link').map((a) => a.getAttribute('href'))
+    expect(links.filter((h) => h === 'https://github.com/6502ts/6502.ts')).toHaveLength(1)
   })
 
   it('routes .gbc files to the Game Boy emulator', async () => {
