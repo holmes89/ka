@@ -14,6 +14,10 @@ export default tseslint.config(
     rules: reactHooks.configs.recommended.rules,
   },
   {
+    files: ['**/scripts/**/*.mjs'],
+    languageOptions: { globals: { ...globals.node } },
+  },
+  {
     // Worker sources run in a Web Worker, where `postMessage` and `onmessage` are globals.
     files: ['**/src/worker/**/*.ts'],
     languageOptions: { globals: { ...globals.worker } },

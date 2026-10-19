@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@holmes89/ka-atari2600": "^0.1.0",
+    "@holmes89/ka-atari8": "^0.1.0",
     "@holmes89/ka-core": "^0.1.0",
     "@holmes89/ka-gb": "^0.1.0",
     "@holmes89/ka-nes": "^0.1.0",

@@ -1,0 +1,48 @@
+{
+  "name": "@holmes89/ka-atari8",
+  "version": "0.1.0",
+  "description": "Atari 8-bit (400/800/XL/XE) emulator React component for Ka (bundles the MIT Sfotty Pie core)",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./component": {
+      "types": "./dist/Atari8Emulator.d.ts",
+      "import": "./dist/Atari8Emulator.js",
+      "require": "./dist/Atari8Emulator.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holmes89/ka.git",
+    "directory": "packages/ka-atari8"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "gen:firmware": "node scripts/gen-firmware.mjs",
+    "build": "vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@holmes89/ka-core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@sfotty-pie/a8": "0.3.0"
+  }
+}

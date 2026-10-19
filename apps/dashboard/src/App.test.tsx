@@ -37,6 +37,16 @@ vi.mock('@holmes89/ka-atari2600', () => ({
   },
 }))
 
+vi.mock('@holmes89/ka-atari8', () => ({
+  atari8Emulator: {
+    id: 'atari8',
+    label: 'Atari 8-bit',
+    platforms: ['atari8'],
+    extensions: ['.xex', '.atr', '.car', '.com'],
+    load: () => Promise.resolve({ default: ({ rom }: { rom: Uint8Array }) => <div data-testid="a8">a8:{rom.length}</div> }),
+  },
+}))
+
 const file = (name: string, bytes = 8) => new File([new Uint8Array(bytes)], name)
 const choose = (f: File) => fireEvent.change(document.querySelector('input[type=file]')!, { target: { files: [f] } })
 
@@ -46,6 +56,7 @@ describe('Ka dashboard', () => {
     expect(screen.getByRole('heading', { name: 'NES' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Game Boy / Game Boy Color' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Atari 2600' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Atari 8-bit' })).toBeInTheDocument()
     for (const text of ['nes', '.nes', 'gb', 'gbc', '.gb', '.gbc']) {
       expect(screen.getAllByText(text).length).toBeGreaterThan(0)
     }
@@ -67,6 +78,7 @@ describe('Ka dashboard', () => {
         'https://github.com/torch2424/wasmBoy',
         'https://github.com/holmes89/wasmboy',
         'https://github.com/6502ts/6502.ts',
+        'https://github.com/cyco130/sfotty-pie',
       ]),
     )
   })
@@ -84,6 +96,12 @@ describe('Ka dashboard', () => {
     expect(await screen.findByTestId('a26')).toHaveTextContent('a26:4')
     const links = screen.getAllByRole('link').map((a) => a.getAttribute('href'))
     expect(links.filter((h) => h === 'https://github.com/6502ts/6502.ts')).toHaveLength(1)
+  })
+
+  it('plays Atari 8-bit programs by extension, case-insensitively', async () => {
+    render(<App />)
+    choose(file('MULE.XEX', 6))
+    expect(await screen.findByTestId('a8')).toHaveTextContent('a8:6')
   })
 
   it('routes .gbc files to the Game Boy emulator', async () => {

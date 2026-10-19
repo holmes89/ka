@@ -29,6 +29,18 @@ export const CREDITS: Credit[] = [
     licence: 'MIT',
     upstream: 'https://github.com/6502ts/6502.ts',
   },
+  {
+    id: 'atari8',
+    name: 'Sfotty Pie',
+    licence: 'MIT',
+    upstream: 'https://github.com/cyco130/sfotty-pie',
+  },
+  {
+    id: 'atari8-firmware',
+    name: 'AltirraOS (Atari 8-bit firmware)',
+    licence: 'FSF all-permissive',
+    upstream: 'https://www.virtualdub.org/altirra.html',
+  },
 ]
 
 export const KA_REPO = 'https://github.com/holmes89/ka'
