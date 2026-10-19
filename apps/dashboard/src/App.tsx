@@ -126,7 +126,13 @@ export function App() {
               <li key={c.id}>
                 <strong>{c.name}</strong> <span className="muted">({c.licence})</span>
                 <br />
-                <a href={c.upstream}>Original</a> · <a href={c.fork}>holmes89 fork</a>
+                <a href={c.upstream}>{c.fork ? 'Original' : 'Upstream'}</a>
+                {c.fork && (
+                  <>
+                    {' · '}
+                    <a href={c.fork}>holmes89 fork</a>
+                  </>
+                )}
               </li>
             ))}
           </ul>

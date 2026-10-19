@@ -1,0 +1,6 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "noEmit": true, "types": ["vitest/globals", "@testing-library/jest-dom"] },
+  "include": ["src"],
+  "exclude": ["src/worker"]
+}

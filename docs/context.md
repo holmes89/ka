@@ -4,3 +4,4 @@
 - The emulator cores are forks under the holmes89 account: `nes-js` (MIT) and `wasmboy` (GPL-3.0). Embedding changes live in those forks' PRs; Ka consumes their published builds.
 - The wasmboy fork does not commit `dist/`, so `ka-gb` needs a published build of the fork.
 - Ka is public. CI must use GitHub-hosted runners only.
+- The Atari packages use upstream cores unmodified (no holmes89 fork): `6502.ts` 1.1.4 (MIT, Stellerator) and `@sfotty-pie/a8` (MIT). 6502.ts has no teardown API, so `ka-atari2600` reaches its private `_emulationService._worker` and `_audioDriver`; keep the version pinned and recheck on upgrade.
