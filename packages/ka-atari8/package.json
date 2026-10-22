@@ -1,6 +1,6 @@
 {
   "name": "@holmes89/ka-atari8",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Atari 8-bit (400/800/XL/XE) emulator React component for Ka (bundles the MIT Sfotty Pie core)",
   "license": "MIT",
   "type": "module",
@@ -37,7 +37,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@holmes89/ka-core": "^0.2.0"
+    "@holmes89/ka-core": "^0.2.1"
   },
   "peerDependencies": {
     "react": "^19.0.0"
