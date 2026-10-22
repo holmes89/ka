@@ -6,6 +6,7 @@ npm workspaces monorepo, TypeScript, Vite library builds (ESM + CJS + types), Re
 
 - `EmulatorProps { rom: Uint8Array; onReady?; onError?; className? }`: the contract every emulator component implements.
 - `EmulatorDefinition { id, label, platforms, extensions, load }`: describes a system; `load()` is a dynamic import so cores and wasm are fetched only when a game of that system is opened.
+- `createFrameLimiter(frameMs)`: tells a `requestAnimationFrame` loop which ticks should emulate a frame (default the NES rate, 60.0988 fps), for cores that step one frame per tick. Time owed is capped at two frames so a stalled tab does not fast-forward.
 - `createRegistry(definitions)`: lookups by Ibis platform id and by ROM file name; rejects duplicate platforms/extensions.
 - `KEY_MAP` / `CONTROLS_HINT` / `padButtonForCode`: the one keyboard layout (arrows, X=A, Z=B, Enter=Start, Shift=Select).
 - `useKeyboard(handlers, enabled)`: window key listeners for mapped keys only (`preventDefault` just for those, repeat ignored, removed on unmount, StrictMode safe).

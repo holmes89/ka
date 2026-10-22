@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import NesJs from 'nes-js'
-import { emulatorCanvasStyle, useKeyboard } from '@holmes89/ka-core'
+import { createFrameLimiter, emulatorCanvasStyle, useKeyboard } from '@holmes89/ka-core'
 import type { EmulatorProps, PadButton } from '@holmes89/ka-core'
 
 const BUTTONS = NesJs.Joypad.BUTTONS
@@ -17,6 +17,21 @@ const PAD_TO_NES: Record<PadButton, number> = {
 }
 
 type Session = { nes: InstanceType<typeof NesJs.Nes>; audio: InstanceType<typeof NesJs.Audio> }
+
+/**
+ * nes-js steps one frame per animation frame, which is 2x speed on a 120 Hz display. Wrap its
+ * frame callback so a frame is only emulated when one is due at the NES rate. rafId stays set
+ * while waiting, so stop() and destroy() still cancel the pending callback.
+ */
+function limitFrameRate(nes: Session['nes']) {
+  const due = createFrameLimiter()
+  const stepFrame = nes.runFunc
+  const tick: FrameRequestCallback = (now) => {
+    if (due(now)) stepFrame(now)
+    else nes.rafId = requestAnimationFrame(tick)
+  }
+  nes.runFunc = tick
+}
 
 /** Plays an iNES ROM on a canvas. Keyboard only; owns its audio and listeners and releases them on unmount. */
 export default function NesEmulator({ rom, onReady, onError, className }: EmulatorProps) {
@@ -41,6 +56,7 @@ export default function NesEmulator({ rom, onReady, onError, className }: Emulat
       nes.setDisplay(new NesJs.Display(canvas))
       nes.setAudio(audio)
       nes.bootup()
+      limitFrameRate(nes)
       nes.run()
       session.current = { nes, audio }
       callbacks.current.onReady?.()

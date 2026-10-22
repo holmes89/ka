@@ -9,6 +9,9 @@ declare module 'nes-js' {
   }
   interface Nes {
     pad1: Joypad
+    /** The requestAnimationFrame callback that steps one frame and schedules the next. */
+    runFunc: FrameRequestCallback
+    rafId: number | null
     setRom(rom: unknown): void
     setDisplay(display: unknown): void
     setAudio(audio: unknown): void

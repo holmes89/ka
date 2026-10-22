@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { fireEvent, render } from '@testing-library/react'
 import { StrictMode } from 'react'
+import NesJs from 'nes-js'
 import NesEmulator from './NesEmulator'
 import { nesEmulator } from './index'
 
@@ -96,6 +97,38 @@ describe('NesEmulator', () => {
     unmount()
     expect(frames.size).toBe(0)
     expect(audioContexts.every((c) => c.closed)).toBe(true)
+  })
+
+  it('emulates about 60 frames per second on a 120 Hz display', () => {
+    const run = vi.spyOn(NesJs.Nes.prototype, 'run')
+    render(<NesEmulator rom={pong} />)
+    run.mockClear()
+    // One display tick every 1000/120 ms for one second.
+    for (let i = 0; i < 120; i++) {
+      const [id, cb] = [...frames][0]
+      frames.delete(id)
+      cb((i + 1) * (1000 / 120))
+      expect(frames.size).toBe(1)
+    }
+    expect(run.mock.calls.length).toBeGreaterThanOrEqual(59)
+    expect(run.mock.calls.length).toBeLessThanOrEqual(62)
+  })
+
+  it('cancels a frame it is waiting on when unmounted', () => {
+    const run = vi.spyOn(NesJs.Nes.prototype, 'run')
+    const { unmount } = render(<NesEmulator rom={pong} />)
+    const step = (now: number) => {
+      const [id, cb] = [...frames][0]
+      frames.delete(id)
+      cb(now)
+    }
+    step(1000) // first tick: runs a frame
+    run.mockClear()
+    step(1001) // 1 ms later: not due, waits
+    expect(run).not.toHaveBeenCalled()
+    expect(frames.size).toBe(1)
+    unmount()
+    expect(frames.size).toBe(0)
   })
 
   it('swaps games when the ROM changes', () => {
