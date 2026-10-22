@@ -1,6 +1,6 @@
 {
   "name": "@holmes89/ka-gb",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Game Boy / Game Boy Color emulator React component for Ka (bundles the GPL-3.0 wasmboy fork)",
   "license": "GPL-3.0-or-later",
   "type": "module",
@@ -37,7 +37,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@holmes89/ka-core": "^0.2.0"
+    "@holmes89/ka-core": "^0.2.1"
   },
   "peerDependencies": {
     "react": "^19.0.0"
